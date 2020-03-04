@@ -1,0 +1,40 @@
+
+<loading-spinner *ngIf="showSpinner"></loading-spinner>
+<div *ngIf="!showSpinner" [ngStyle]="{'background-color': woman ? 'fuchsia' : 'white'}" class="header">
+  <h3 *ngIf="userId">{{ plan }} </h3>
+  <div *ngIf="!showSpinner" class="headerPlan">
+    <button *ngIf="userId" matTooltip="Erstellen" mat-icon-button header (click)="onEdit()" >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button *ngIf="userId" matTooltip="Erstellen" mat-icon-button header (click)="openCreateSectionSheet()" onclick="this.blur()" >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div >
+<mat-nav-list>
+  <div class="sections" *ngFor="let s of sections">
+    <div class="sectionButton">
+       <button  *ngIf="bEdit" matTooltip="Section Löschen" mat-icon-button (click)="onDeleteSection(s)" >
+         <mat-icon>delete</mat-icon>
+       </button>
+     </div>
+     <a mat-list-item [routerLink]="['/sectiondetails' , id , s.key ]" > 
+      {{ s.name }}
+    </a>      
+  </div>
+</mat-nav-list>
+<!-- <div class="noDataEinheit" *ngIf="!noDataEinheit">
+  Noch keine Einheit vorhanden, über + erstellen
+ </div> -->
+
+ <div class="noDataEinheit" *ngIf="!noDataEinheit">
+  <ng-template #anonymousUser>
+    <div *ngIf="!showSpinner">
+     Bitte anmelden
+    </div>
+ </ng-template>
+<div
+   *ngIf="userId; else anonymousUser">
+   Noch keine Einheit vorhanden, über + erstellen
+</div>
+</div>

@@ -1,0 +1,18 @@
+.headerPlan{
+  position: relative;
+  float: right;
+  margin-top: -50px;
+}
+
+.sectionButton{
+  margin-top: 3px;
+  float: left;
+  }
+
+.noDataEinheit {
+  margin-bottom: 30px;
+}
+
+.header {
+  max-width: 1024px;
+}

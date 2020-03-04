@@ -1,0 +1,151 @@
+<div class="header">
+<div class="exHeader" [ngStyle]="{'background-color': woman ? 'fuchsia' : 'white'}">
+  <h3 *ngIf="userId">{{sectionName}}</h3> 
+</div>
+ <div class="headerEx" *ngIf="userId">
+  <button matTooltip="Aufklappen" *ngIf="!showSpinner" mat-icon-button header (click)="expandAll()" >
+    <mat-icon>expand_more</mat-icon>
+  </button>
+  <button matTooltip="Zuklappen" *ngIf="!showSpinner" mat-icon-button header (click)="collapseAll()" >
+    <mat-icon>expand_less</mat-icon>
+  </button>
+  <button matTooltip="Erstellen" mat-icon-button header (click)="onEdit()" *ngIf="!showSpinner" mat-icon-button header>
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button matTooltip="Übung hinzufügen" [matMenuTriggerFor]="menu" *ngIf="!showSpinner" mat-icon-button header >
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openCreateExerciseDialog()">Übung hinzufügen</button>
+    <button mat-menu-item (click)="openCreateExerciseDialogCustom()">Neue Übung erstellen</button>
+  </mat-menu>
+</div>
+</div>
+
+
+<loading-spinner *ngIf="showSpinner"></loading-spinner>
+<mat-tree #exerciseTree [dataSource]="dataSource" [treeControl]="treeControl">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+  <mat-card *ngFor="let sa of node.saetze">
+     <mat-card-subtitle>
+      <div *ngIf="bEdit" >
+        <button matTooltip="Satz Löschen" class="satz-card-delete" mat-icon-button (click)="onDeleteSatz(sa)" >
+          <mat-icon>delete</mat-icon>
+        </button>
+        </div>
+       {{sa.name}}
+     </mat-card-subtitle>
+
+    <mat-card-content> 
+    <form class="example-form">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+        <div class="satz-card">
+        <input matInput name="kg" #sa.kg="ngModel" type="number" placeholder="Kg"  
+        [(ngModel)]="sa.kg" required [ngModelOptions]="{standalone: true}" (input)="onChange($event ,sa)">
+      </div>
+      </mat-form-field>
+    </td>
+      <td>
+        <mat-form-field class="example-full-width">
+        <div class="satz-card">
+        <input matInput name="rep" #sa.rep="ngModel" type="number" placeholder="Whd"  
+        [(ngModel)]="sa.rep" required [ngModelOptions]="{standalone: true}" (input)="onChange($event ,sa)" >
+        </div>
+      </mat-form-field>
+    </td>
+      <td>
+        <mat-form-field class="example-full-width">
+        <div class="satz-card">
+        <input matInput name="rpe" #sa.rpe="ngModel" type="number" placeholder="Rpe" 
+        [(ngModel)]="sa.rpe" required [ngModelOptions]="{standalone: true}" (input)="onChange($event ,sa)" >
+        </div>
+      </mat-form-field>
+    </td>
+    <td>
+      <div class="satz-card-checked">
+        <mat-checkbox class="example-margin" [(ngModel)]="sa.checked" [ngModelOptions]="{standalone: true}" (change)="onSatzChecked($event, sa)" ></mat-checkbox>
+      </div>
+    </td>
+<!--     <td class="satz-card-delete">
+      <div *ngIf="bEdit" class="satz-card-delete">
+        <button matTooltip="Satz Löschen" mat-icon-button (click)="onDeleteSatz(sa)" >
+          <mat-icon>delete</mat-icon>
+        </button>
+        </div>
+      </td> -->
+<!--       <div *ngIf="bEdit" class="satz-card-delete" >
+        <button matTooltip="Satz Löschen" mat-icon-button (click)="onDeleteSatz(sa)" >
+          <mat-icon>delete</mat-icon>
+        </button>
+        </div> -->
+    </tr>
+  </table>
+
+  </form>
+     </mat-card-content>
+  </mat-card> 
+  <div class="addEx">
+  <button matTooltip="Satz Hinzufügen" mat-icon-button (click)="onAddSatz(node,exerciseTree)" >
+    <mat-icon>add</mat-icon>
+  </button>   
+</div>
+    </mat-tree-node>
+
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+    
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <span *ngIf="node.name" class="nodeEx">
+        {{node.name}}
+      </span>
+      <span *ngIf="node.addInfo" class="nodeAdd">
+        {{node.addInfo}}
+      </span>
+      <span *ngIf="node.info" class="nodeinfo">
+        {{node.info}}
+      </span>
+      <span *ngIf="node.alter" class="nodeAlter">
+        {{node.alter}}
+      </span>  
+      <div class="deleteEx">
+        <button  *ngIf="bEdit" matTooltip="Übung Löschen" mat-icon-button (click)="onDeleteExercise(node)" >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div class="checkEx">
+        <button matTooltip="Alle Sätze erledigen auf erledigt setzen" mat-icon-button (click)="onCheckExercise(node,true)" >
+          <mat-icon>check_box</mat-icon>
+        </button>
+        <button matTooltip="Alle Sätze auf nicht erledigt setzen" mat-icon-button (click)="onCheckExercise(node,false)" >
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </button>
+      </div>
+  
+    </mat-tree-node>
+  </mat-tree>
+
+<!--   <div class="noDataEx" *ngIf="!noDataEx">
+    Noch keine Übung vorhanden, über + hinzufügen oder erstellen
+   </div> -->
+
+   <div class="noDataEx" *ngIf="!noDataEx">
+    <ng-template #anonymousUser>
+      <div *ngIf="!showSpinner">
+       Bitte anmelden
+      </div>
+   </ng-template>
+  <div
+     *ngIf="userId; else anonymousUser">
+     Noch keine Übung vorhanden, über + hinzufügen oder erstellen
+  </div>
+ </div>
+

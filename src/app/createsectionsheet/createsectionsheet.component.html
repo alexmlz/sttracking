@@ -1,0 +1,13 @@
+<form #createPlanF class="create-section-form">
+<!--     <mat-form-field class="create-section-full-width">
+      <input matInput placeholder="Section Id" ngModel required #sectionId="ngModel" name="sectionId" >
+    </mat-form-field> -->
+    <p>Neue Einheit erstellen</p>
+    <mat-form-field class="create-section-full-width">
+        <input matInput placeholder="Name der Einheit" ngModel required #sectionName="ngModel" name="sectionName">
+    </mat-form-field>
+    <div class="buttonActionSheet">
+    <button mat-button (click)="onCancelClick()">Abbrechen</button>
+    <button mat-button (click)="createSection(sectionName.value)">Erstellen</button>
+</div>
+  </form>

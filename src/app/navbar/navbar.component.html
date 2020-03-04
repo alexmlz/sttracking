@@ -1,0 +1,27 @@
+<mat-toolbar>  
+    <mat-toolbar-row>
+      <button matTooltip="Zurück" mat-icon-button (click)="back()" >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-icon-button (click)="home()" >
+        <mat-icon>home</mat-icon>
+      </button>
+      <span class="spacer">
+      <div *ngIf="appUser" 
+           class="welcomeText">
+          Hallo {{ appUser.name }}
+      </div>  
+      </span>
+        <ng-template #anonymousUser>
+            <button mat-button (click)="login()"
+                    class="btn btn-primary">
+                    Anmelden mit Google
+            </button>
+        </ng-template>
+        <button mat-button (click)="logout()"
+                class="btn btn-primary" 
+                *ngIf="appUser; else anonymousUser">
+          Abmelden
+        </button>
+    </mat-toolbar-row>
+  

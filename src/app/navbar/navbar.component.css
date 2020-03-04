@@ -1,0 +1,23 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+.mat-toolbar {
+    background-color: #000;
+    max-width: 1024px;
+}
+
+.mat-icon-button{
+    color: white;
+}
+
+.mat-button{
+    color: white;
+}
+
+.welcomeText {
+    color: white;
+    font-size: small;
+}
+
+  

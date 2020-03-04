@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Neue Übung</h1>
+<div mat-dialog-content>
+<!--   <p>Name der Übung</p> -->
+  <mat-form-field>
+    <input key="exercise.name" matInput [(ngModel)]="exercise.name" placeholder="Name der Übung">
+  </mat-form-field>
+<!--   <p>Sätze Wähle</p> -->
+  <mat-form-field>
+    <input key="exercise.saetze" type="number" matInput min="1" value="1" [(ngModel)]="exercise.saetze" placeholder="Sätze">
+  </mat-form-field>
+ <!--  <p>Zusätzliche Informationen</p> -->
+  <mat-form-field>
+    <input key="exercise.addInfo" matInput [(ngModel)]="exercise.addInfo" placeholder="Zusätzliche Informationen">
+  </mat-form-field>
+<!--   <p>Alternative</p> -->
+  <mat-form-field>
+    <input key="exercise.alter" matInput [(ngModel)]="exercise.alter" placeholder="Alternative">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Abbrechen</button>
+  <button mat-button (click)="onAddClick(exercise)" [mat-dialog-close]="exercise">Hinzufügen</button>
+</div>

@@ -1,0 +1,79 @@
+.mat-tree {
+  margin-top: 18px;
+}
+
+.mat-tree-node { 
+  padding-left: 0px!important; 
+  padding-right: 0px;
+  margin: 0px; 
+  margin-top: 0px;
+  max-width: 1024px;
+  display: block;
+}
+
+.mat-form-field{
+  width: 80px;
+  height: 40px;
+  }
+
+.mat-card{
+  margin: 5px;
+  padding: 8px;
+   background-color: rgb(67, 159, 245);
+}
+
+.mat-card-subtitle{
+  color: white;
+  margin-bottom: 5px;
+}
+
+.mat-card-title{
+  background-color: black;
+}
+
+.mat-icon-button{
+  width: 30px;  
+}
+
+.header {
+  max-width: 1024px;
+}
+
+.exBeschreibung {
+  display: block;
+}
+
+.exHeader{
+  display: inline-block !important;
+}
+
+.headerEx{
+  float: right;
+}
+
+.addEx{
+  padding-left: 170px;
+}
+
+.deleteEx{
+  float: left;
+  }
+
+.checkEx{
+  float: right;
+  }
+
+  .satz-card-delete{
+    float: right;
+    color: black;
+    padding-top: 20px;
+  }
+
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    background-color: black !important;
+  }
+
+  .noDataEx {
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }

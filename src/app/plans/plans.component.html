@@ -1,0 +1,42 @@
+<div class="planName">
+    <h3 *ngIf="userId">Pläne</h3> 
+    <div class="headerPlan" *ngIf="userId">
+      <button *ngIf="!showSpinner" matTooltip="Plan veröffentlichen" mat-icon-button header (click)="openPublishPlan()">
+        <mat-icon>publish</mat-icon>
+      </button>
+      <button *ngIf="!showSpinner" matTooltip="Erstellen" mat-icon-button header (click)="onEdit()" >
+        <mat-icon>edit</mat-icon>
+      </button>
+    <button *ngIf="!showSpinner" matTooltip="Erstellen" mat-icon-button header (click)="openCreatePlanSheet()" onclick="this.blur()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+<loading-spinner *ngIf="showSpinner"></loading-spinner>
+
+<mat-nav-list class="plansList">
+  <div class="plan" *ngFor="let p of plans">
+    <div class="planCheck">
+       <button  *ngIf="bEdit" matTooltip="Plan Löschen" mat-icon-button (click)="onDeletePlan(p)" >
+         <mat-icon>delete</mat-icon>
+       </button>
+       <button *ngIf="bPublish" matTooltip="Plan veröffentlichen" mat-icon-button (click)="onPublishPlanSave(p)">
+        <mat-icon>publish</mat-icon>
+      </button>
+     </div>
+     <a mat-list-item [routerLink]="['/plandetails' , p.key ]" > 
+      {{ p.name }}
+    </a>      
+  </div>
+ </mat-nav-list>
+ <div class="noDataPlans" *ngIf="!bPlansAvailable">
+   <ng-template #anonymousUser>
+     <div *ngIf="!showSpinner">
+      Bitte anmelden
+     </div>
+  </ng-template>
+ <div
+    *ngIf="userId; else anonymousUser">
+    Noch kein Plan vorhanden, über + hinzufügen oder erstellen
+ </div>
+</div>

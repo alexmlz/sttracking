@@ -1,0 +1,18 @@
+.headerPlan{
+  position: relative;
+  float: right;
+  margin-top: -50px;
+  }
+
+  .planCheck{
+  margin-top: 3px;
+  float: left;
+  }
+
+  .noDataPlans {
+    margin-bottom: 30px;
+  }
+
+  .planName {
+    max-width: 1024px;
+  }
